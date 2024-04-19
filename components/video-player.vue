@@ -16,13 +16,9 @@ const player = ref(null)
 const videoPlayer = ref(null)
 
 onMounted(() => {
-  player.value = videojs(
-    videoPlayer.value,
-    { autoplay: true, controls: true, ...props.options },
-    () => {
-      player.value.log('onPlayerReady', this)
-    }
-  )
+  player.value = videojs(videoPlayer.value, { autoplay: true, controls: true, ...props.options }, () => {
+    player.value.log('onPlayerReady', this)
+  })
 })
 
 onBeforeUnmount(() => {

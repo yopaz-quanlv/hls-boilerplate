@@ -1,17 +1,18 @@
 import { type File } from 'formidable'
 import fs from 'fs'
-import ffmpegService from './ffmpeg.service'
-import { v4 } from 'uuid'
 
-async function saveFile(file: File): Promise<string> {
+import ffmpegService from './ffmpeg.service'
+
+async function saveFile(file: File, id: string): Promise<{ playListUrl: string; thumbnail: string } | string> {
   const filepath = file.filepath
 
   await fs.writeFileSync(`./public/videos/origin/${file.originalFilename}`, fs.readFileSync(filepath))
 
-  const id = v4()
+  const savedVideoSuccess = await ffmpegService.encodeHls(file.filepath, id)
+  const savedThumbnailSuccess = await ffmpegService.generateThumbnail(file.filepath, id)
 
-  if (await ffmpegService.encodeHls(file.filepath, id)) {
-    return id
+  if (savedVideoSuccess && savedThumbnailSuccess) {
+    return { playListUrl: `/videos/encoded/${id}.m3u8`, thumbnail: `/thumbnails/${id}.jpg` }
   }
 
   return 'error'

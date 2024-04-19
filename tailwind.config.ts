@@ -9,7 +9,11 @@ export default {
     './error.vue'
   ],
   theme: {
-    extend: {}
+    extend: {
+      gridTemplateColumns: {
+        'auto-fill': 'repeat(auto-fill, minmax(18rem, 1fr))'
+      }
+    }
   },
   plugins: []
 }

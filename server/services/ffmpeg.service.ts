@@ -11,4 +11,15 @@ async function encodeHls(url: string, name: string): Promise<boolean> {
   return fs.existsSync(outputFile)
 }
 
-export default { encodeHls }
+async function generateThumbnail(url: string, name: string): Promise<boolean> {
+  const { $ } = await import('zx')
+
+  const outputFile = `./public/thumbnails/${name}.jpg`
+
+  await $`ffmpeg -i ${url} -ss 00:00:01.000 -vframes 1 ${outputFile}`
+
+  // health check
+  return fs.existsSync(outputFile)
+}
+
+export default { encodeHls, generateThumbnail }
