@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init --create-only",
     "prisma:deploy": "prisma migrate deploy",
@@ -24,6 +25,7 @@
     "zx": "^8.0.1"
   },
   "devDependencies": {
+    "@nuxt/eslint-config": "^0.3.8",
     "@types/formidable": "^3.4.5",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",

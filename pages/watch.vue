@@ -1,31 +1,21 @@
 <script setup>
 import { ref } from 'vue'
 
-import VideoPlayer from '~/components/video-player.vue'
+import VideoDetail from '~/components/video/video-detail.vue'
+
+definePageMeta({
+  layout: 'detail'
+})
 
 const route = useRoute()
 
-const options = ref({
-  sources: [
-    {
-      src: route.query.v ? `/videos/encoded/${route.query.v}.m3u8` : '',
-      type: 'application/x-mpegURL'
-    }
-  ]
-})
+const videoUuid = ref(route.query.v ?? '')
 </script>
 
 <template>
-  <div class="container">
-    <VideoPlayer :options="options" />
+  <div v-if="videoUuid">
+    <VideoDetail :uuid="videoUuid" />
   </div>
-</template>
 
-<style scoped>
-.container {
-  width: 100%;
-  height: 100%;
-  place-content: center;
-  margin: 0 auto;
-}
-</style>
+  <div v-else>Invalid video id.</div>
+</template>
