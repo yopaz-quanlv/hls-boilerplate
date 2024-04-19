@@ -5,7 +5,7 @@ const loadedFile = ref(null)
 const isLoading = ref(false)
 const uploadedUrl = ref('')
 
-const uploadFile = event => {
+const uploadFile = (event) => {
   const file = event.target.files[0]
 
   loadedFile.value = file
@@ -43,8 +43,6 @@ const onSubmit = async () => {
   </form>
 
   <div v-if="uploadedUrl">
-    <NuxtLink :to="`/watch?v=${uploadedUrl}`">
-      http://localhost:3000/watch?v{{ uploadedUrl }}
-    </NuxtLink>
+    <NuxtLink :to="`/watch?v=${uploadedUrl}`"> http://localhost:3000/watch?v{{ uploadedUrl }} </NuxtLink>
   </div>
 </template>
